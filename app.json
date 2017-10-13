@@ -1,0 +1,20 @@
+{
+    "name": "SolveBio Dash App",
+    "description": "A barebones Dash app that uses SolveBio login",
+    "repository": "https://github.com/solvebio/solvebio-dash-example",
+    "keywords": ["python", "solvebio", "dash"],
+    "env": {
+        "CLIENT_ID": {
+            "description": "The SolveBio OAuth2 application client ID.",
+            "value": ""
+        },
+        "APP_URL": {
+            "description": "The URL to your app.",
+            "value": ""
+        },
+        "SECRET_KEY": {
+            "description": "A Flask app secret key.",
+            "generator": "secret"
+        }
+    }
+}
