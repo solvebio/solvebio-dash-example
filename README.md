@@ -1,5 +1,5 @@
-SolveBio/Dash Boilerplate App
-=============================
+SolveBio + Dash Example App
+===========================
 
 This is an example [Dash](https://plot.ly/products/dash/) application that uses the SolveBio API to pull data.
 
@@ -19,14 +19,14 @@ To run it locally, you'll need Python 2.7 or 3.6 installed. You can deploy it to
     pip install -r requirements-py2.txt
 
 
-### Run the App:
+### Run the App
 
 If you have a SolveBio OAuth2 client ID, set the environment variable:
 
     export CLIENT_ID=<your client ID>
 
 
-If you do not have a client ID, but would like to test the app with your personal SolveBio API key, set the environment variable:
+If you do not have a client ID or would like to test the app with your personal SolveBio API key, set the following environment variable:
 
     export SOLVEBIO_API_KEY=<your API key>
 
