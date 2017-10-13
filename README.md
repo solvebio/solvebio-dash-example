@@ -5,6 +5,10 @@ This is an example [Dash](https://plot.ly/products/dash/) application that uses 
 
 To run it locally, you'll need Python 2.7 or 3.6 installed. You can deploy it to Heroku or to a SolveBio App Server.
 
+The base application code can be found in `app.py`. The `index.py` file handles path-based routing for multi-page Dash apps.
+
+This application generates a few charts based on a single gene symbol input.
+
 
 ## Local Development
 
