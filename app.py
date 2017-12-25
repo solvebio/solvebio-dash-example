@@ -41,10 +41,16 @@ app.css.append_css({
 
 
 def current_user():
-    user = flask.g.client.User.retrieve()
-    return [
-        html.Div(children='Logged-in as: {}'.format(user.full_name))
-    ]
+    if app.auth:
+        user = flask.g.client.User.retrieve()
+        return [
+            html.Div(children='Logged-in as: {}'.format(user.full_name)),
+            html.A('Log out', href='/_dash-logout')
+        ]
+    else:
+        return [
+            html.P('(SolveBio Auth not configured)')
+        ]
 
 
 def layout():
