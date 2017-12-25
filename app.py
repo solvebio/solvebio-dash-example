@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
-from dash_solvebio_auth.solvebio_dash import SolveBioDash
+from __future__ import absolute_import
+from __future__ import print_function
 
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_table_experiments as dt
 import plotly.graph_objs as go
 import flask
-import os
+
+from solvebio.contrib.dash import SolveBioDash
 
 from charts import variants
 from charts import cnv
@@ -14,6 +17,17 @@ from charts import expression
 
 # Initialize the Dash app with SolveBio auth.
 app = SolveBioDash(__name__, title='Example Dash App')
+
+app.layout = html.Div([
+    # Component that manages page routing based on the URL
+    dcc.Location(id='url', refresh=False),
+    # Dummy table to load JS/CSS for table
+    html.Div(children=[dt.DataTable(id='dummy-table', rows=[{}])],
+             style={'display': 'none'}),
+    # Div which will contain all page content
+    html.Div(id='page-content')
+])
+
 
 # Dash CSS
 app.css.append_css({
@@ -67,6 +81,14 @@ def layout():
             ])
         ])
     ], className="container")
+
+
+@app.callback(Output('page-content', 'children'),
+              [Input('url', 'pathname')])
+def display_page(pathname):
+    # This app only has one page. Learn about multi-page apps:
+    # https://plot.ly/dash/urls
+    return layout()
 
 
 @app.callback(
@@ -189,3 +211,7 @@ def _copy_number_frequencies(*args):
             )
         )
     )
+
+
+if __name__ == '__main__':
+    app.run_server(debug=True, threaded=True)
