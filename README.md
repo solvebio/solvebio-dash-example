@@ -51,22 +51,32 @@ If you have access to a SolveBio App Server, contact SolveBio support for instru
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+You will need to set the following environment variables:
+
+* `SECRET_KEY`: A secret key generated specifically for your app.
+* `CLIENT_ID`: Your SolveBio app's client ID
+* `APP_URL`: The public URL of your app (e.g. `https://<APP NAME>.herokuapp.com`)
+
 
 If you want to deploy manually with the Heroku CLI, first create a new Heroku app:
 
+    # Create the Heroku app
     heroku create
 
     # Set the SECRET_KEY to random characters
     heroku config:set SECRET_KEY=somesecretkey123
+
     # Set your SolveBio OAuth2 client ID
     heroku config:set CLIENT_ID=<your client id>
+
+    # Set your app's public URL
+    heroku config:set APP_URL=https://<your app>.herokuapp.com
 
     git push heroku master
 
 
-Tip: generate a secret key using Python:
+### Generating your `SECRET_KEY`
 
-    import binascii
-    import os
-    binascii.hexlify(os.urandom(24))
+Run this one-liner from your command line to get a secret key:
 
+    python -c "import binascii, os; print(binascii.hexlify(os.urandom(24)))"
