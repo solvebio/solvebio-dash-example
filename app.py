@@ -5,39 +5,30 @@ from __future__ import print_function
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_html_components as html
-import dash_table_experiments as dt
+import dash_table as dt
 import plotly.graph_objs as go
 import flask
 
 from solvebio.contrib.dash import SolveBioDash
 
 from charts import variants
-from charts import cnv
+# from charts import cnv
 from charts import expression
 
+
+import solvebio as sb
+
+sb.login(api_host="https://solvebio.api.solvebio.com")
+
 # Initialize the Dash app with SolveBio auth.
-app = SolveBioDash(__name__, title='Example Dash App')
+app = SolveBioDash(__name__, title='Example Dash App', suppress_callback_exceptions=True)
 
 app.layout = html.Div([
     # Component that manages page routing based on the URL
     dcc.Location(id='url', refresh=False),
-    # Dummy table to load JS/CSS for table
-    html.Div(children=[dt.DataTable(id='dummy-table', rows=[{}])],
-             style={'display': 'none'}),
     # Div which will contain all page content
     html.Div(id='page-content')
 ])
-
-
-# Dash CSS
-app.css.append_css({
-    "external_url": "//codepen.io/chriddyp/pen/bWLwgP.css"
-})
-
-# Loading screen CSS
-app.css.append_css({
-    "external_url": "//codepen.io/chriddyp/pen/brPBPO.css"
-})
 
 
 def current_user():
@@ -103,7 +94,7 @@ def display_page(pathname):
     [Input(component_id='run-button', component_property='n_clicks')],
     [State(component_id='gene-list', component_property='value')]
 )
-def _mutation_frequencies_total_pop(*args):
+def mutation_frequencies_total_pop(*args):
     if not all(args):
         return []
 
@@ -134,7 +125,7 @@ def _mutation_frequencies_total_pop(*args):
     [Input(component_id='run-button', component_property='n_clicks')],
     [State(component_id='gene-list', component_property='value')]
 )
-def _mutation_frequencies_mutant_pop(*args):
+def mutation_frequencies_mutant_pop(*args):
     if not all(args):
         return []
 
@@ -159,65 +150,65 @@ def _mutation_frequencies_mutant_pop(*args):
     )
 
 
-@app.callback(
-    Output(component_id='graph-gene-expression',
-           component_property='figure'),
-    [Input(component_id='run-button', component_property='n_clicks')],
-    [State(component_id='gene-list', component_property='value')]
-)
-def _gene_expression(*args):
-    if not all(args):
-        return []
+# @app.callback(
+#     Output(component_id='graph-gene-expression',
+#            component_property='figure'),
+#     [Input(component_id='run-button', component_property='n_clicks')],
+#     [State(component_id='gene-list', component_property='value')]
+# )
+# def gene_expression(*args):
+#     if not all(args):
+#         return []
 
-    clicks, genes = args
-    genes = [g.strip() for g in genes.replace(',', ' ').split()]
-    charts = expression.gene_expression_charts(genes[0])
+#     clicks, genes = args
+#     genes = [g.strip() for g in genes.replace(',', ' ').split()]
+#     charts = expression.gene_expression_charts(genes[0])
 
-    return go.Figure(
-        data=charts,
-        layout=go.Layout(
-            title='mRNA Gene Expression by Cancer Type: {}'.format(genes[0]),
-            height=1000,
-            xaxis=dict(
-                title='Cancer Type (Project Code)'
-            ),
-            yaxis=dict(
-                title='Gene Expression'
-            )
-        )
-    )
+#     return go.Figure(
+#         data=charts,
+#         layout=go.Layout(
+#             title='mRNA Gene Expression by Cancer Type: {}'.format(genes[0]),
+#             height=1000,
+#             xaxis=dict(
+#                 title='Cancer Type (Project Code)'
+#             ),
+#             yaxis=dict(
+#                 title='Gene Expression'
+#             )
+#         )
+#     )
 
 
-@app.callback(
-    Output(component_id='graph-copy-number-frequencies',
-           component_property='figure'),
-    [Input(component_id='run-button', component_property='n_clicks')],
-    [State(component_id='gene-list', component_property='value')]
-)
-def _copy_number_frequencies(*args):
-    if not all(args):
-        return []
+# @app.callback(
+#     Output(component_id='graph-copy-number-frequencies',
+#            component_property='figure'),
+#     [Input(component_id='run-button', component_property='n_clicks')],
+#     [State(component_id='gene-list', component_property='value')]
+# )
+# def copy_number_frequencies(*args):
+#     if not all(args):
+#         return []
 
-    clicks, genes = args
-    genes = [g.strip() for g in genes.replace(',', ' ').split()]
-    charts = cnv.copy_number_frequency_charts(hugo_gene=genes[0])
+#     clicks, genes = args
+#     genes = [g.strip() for g in genes.replace(',', ' ').split()]
+#     charts = cnv.copy_number_frequency_charts(hugo_gene=genes[0])
 
-    return go.Figure(
-        data=charts,
-        layout=go.Layout(
-            title='Copy-Number Change (ICGC - Limited Data): {}'
-            .format(genes[0]),
-            barmode='stack',
-            height=1000,
-            xaxis=dict(
-                title='Frequency of Copy-Number Change'
-            ),
-            yaxis=dict(
-                title='Cancer Type (Project Code)'
-            )
-        )
-    )
+#     return go.Figure(
+#         data=charts,
+#         layout=go.Layout(
+#             title='Copy-Number Change (ICGC - Limited Data): {}'
+#             .format(genes[0]),
+#             barmode='stack',
+#             height=1000,
+#             xaxis=dict(
+#                 title='Frequency of Copy-Number Change'
+#             ),
+#             yaxis=dict(
+#                 title='Cancer Type (Project Code)'
+#             )
+#         )
+#     )
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True, threaded=True)
+    app.run_server(debug=True)

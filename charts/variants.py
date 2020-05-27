@@ -221,6 +221,7 @@ def mutation_frequency_mutant_population_charts(gene, **kwargs):
             'data_type': 'object',
             'is_list': True,
             'ordering': 2,
+            'depends_on': ['total_mutations'],
             'expression': """
             [
                 {
@@ -276,7 +277,11 @@ def mutation_frequency_mutant_population_charts(gene, **kwargs):
 
         data = []
         for r in records:
-            f = [f for f in r['mutation_frequencies'] if f['type'] == mt]
+            if r.get('mutation_frequencies'):
+                f = [f for f in r['mutation_frequencies'] if f['type'] == mt]
+            else:
+                f = None
+
             if f:
                 data.append(f[0]['frequency'])
             else:
