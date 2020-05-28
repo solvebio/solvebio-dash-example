@@ -6,15 +6,9 @@
     "env": {
         "CLIENT_ID": {
             "description": "The SolveBio OAuth2 application client ID.",
-            "value": ""
+            "value": "",
         },
-        "APP_URL": {
-            "description": "The URL to your app.",
-            "value": ""
-        },
-        "SECRET_KEY": {
-            "description": "A Flask app secret key.",
-            "generator": "secret"
-        }
-    }
+        "APP_URL": {"description": "The URL to your app.", "value": ""},
+        "SECRET_KEY": {"description": "A Flask app secret key.", "generator": "secret"},
+    },
 }

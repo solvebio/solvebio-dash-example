@@ -4,6 +4,7 @@
 .DS_Store
 .env
 build/
+venv/
 
 node_modules
 npm-debug.log
