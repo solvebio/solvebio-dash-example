@@ -3,7 +3,7 @@ SolveBio + Dash Example App
 
 This is an example [Dash](https://plot.ly/products/dash/) application that uses the SolveBio API to pull data.
 
-To run it locally, you'll need Python 2.7 or 3.6 installed. You can deploy it to Heroku or to a SolveBio App Server.
+To run it locally, you'll need Python 3.6+ installed. You can deploy it to Heroku or to a SolveBio App Server.
 
 The base application code can be found in `app.py`.
 
@@ -16,11 +16,6 @@ This application generates a few charts based on a single gene symbol input.
 ### Install Requirements
 
     pip install -r requirements.txt
-
-
-**Python 2 Only** If you are using Python 2, install a few additional requirements:
-
-    pip install -r requirements-py2.txt
 
 
 ### Run the App

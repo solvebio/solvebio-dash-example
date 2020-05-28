@@ -1,6 +1,0 @@
--r requirements.txt
-
-# Python 2 only
-urllib3==1.22
-wsgiref==0.1.2
-functools32==3.2.3-2
