@@ -11,10 +11,10 @@ import flask
 
 from solvebio.contrib.dash import SolveBioDash
 
-
-import solvebio as sb
-
-sb.login(api_host="https://solvebio.api.solvebio.com")
+# The `login()` function will prevent you from logging in via Dash,
+# so only uncomment the following for local development:
+# import solvebio as sb
+# sb.login()
 
 # Initialize the Dash app with SolveBio auth.
 app = SolveBioDash(
