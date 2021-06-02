@@ -39,5 +39,5 @@ six==1.15.0
 solvebio==2.11.0
 traitlets==4.3.3
 ua-parser==0.10.0
-urllib3==1.25.9
+urllib3==1.26.5
 Werkzeug==1.0.1
