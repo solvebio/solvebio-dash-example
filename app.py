@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
-from __future__ import print_function
-
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_html_components as html
